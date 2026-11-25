@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: dscribe-patient-admission-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_PATH
+        value: /var/data/patients.db
+      - key: FRONTEND_ORIGINS
+        sync: false
+    disk:
+      name: patient-data
+      mountPath: /var/data
+      sizeGB: 1
